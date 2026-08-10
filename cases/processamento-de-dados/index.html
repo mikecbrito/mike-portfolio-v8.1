@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Case de Product Design: módulo proprietário de processamento de dados da Opinion Box, conectando coleta, tratamento, ponderação e análise em um único fluxo." />
+  <meta name="theme-color" content="#f6f6f2" />
+  <title>Processamento de Dados | Mike Brito</title>
+  <link rel="canonical" href="https://mikebrito.com.br/cases/processamento-de-dados" />
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Mike Brito | Product Designer" />
+  <meta property="og:title" content="Processamento de Dados | Mike Brito" />
+  <meta property="og:description" content="Como projetamos um módulo para eliminar a reconstrução manual da pesquisa e conectar coleta e análise em um único ecossistema." />
+  <meta property="og:url" content="https://mikebrito.com.br/cases/processamento-de-dados" />
+  <meta property="og:image" content="https://mikebrito.com.br/assets/cases/processamento-de-dados/01-importacao-banco.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Processamento de Dados | Mike Brito" />
+  <meta name="twitter:description" content="Case de Product Design: processamento de dados integrado ao ecossistema da Opinion Box." />
+  <meta name="twitter:image" content="https://mikebrito.com.br/assets/cases/processamento-de-dados/01-importacao-banco.png" />
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="../../site.webmanifest" />
+  <link rel="stylesheet" href="../../styles.css" />
+</head>
+<body>
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="site-header">
+  <div class="shell nav">
+    <a class="brand" href="../../index.html" aria-label="Mike Brito, início"><img src="../../assets/logo.svg" alt="Mike" /></a>
+    <nav class="nav-links" aria-label="Navegação principal">
+      <a href="../../index.html#cases">Cases</a>
+      <a href="../../index.html#sobre">Sobre</a>
+      <a href="../../index.html#contato">Contato</a>
+      <button class="theme-toggle" type="button" aria-label="Alternar tema"><span>◐</span></button>
+    </nav>
+  </div>
+</header>
+
+<main id="conteudo" class="case-main case-study">
+  <section class="case-hero case-hero-editorial">
+    <div class="shell">
+      <a class="back-link" href="../../index.html#cases">← Voltar para os cases</a>
+      <div class="eyebrow">Case · Data · Complex Systems</div>
+      <h1>Processar dados sem reconstruir a pesquisa do zero.</h1>
+      <p class="case-deck">Depois da coleta, analistas ainda precisavam reprogramar perguntas, variáveis e regras em ferramentas externas. O desafio foi desenhar um produto capaz de preservar esse conhecimento e transformar uma operação de dias em um fluxo integrado, seguro e escalável.</p>
+
+      <div class="case-meta case-meta-editorial">
+        <div class="meta-item"><span class="meta-label">Meu papel</span><span class="meta-value">Lead Product Designer</span></div>
+        <div class="meta-item"><span class="meta-label">Discovery</span><span class="meta-value">3+ meses</span></div>
+        <div class="meta-item"><span class="meta-label">Contexto</span><span class="meta-value">30+ projetos por mês</span></div>
+        <div class="meta-item"><span class="meta-label">Time</span><span class="meta-value">PMO, Tech Lead, 5 devs e QA</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="shell case-visual-lead reveal" aria-label="Tela do módulo de processamento de dados">
+    <figure class="product-frame product-frame-hero">
+      <div class="product-frame-bar" aria-hidden="true"><span></span><span></span><span></span><small>Opinion Box · Processamento de Dados</small></div>
+      <img src="../../assets/cases/processamento-de-dados/01-importacao-banco.png" alt="Tela de importação e substituição de banco de dados com pré-visualização e alerta de alterações" loading="eager" />
+    </figure>
+    <div class="visual-lead-caption">
+      <span>Importação e atualização</span>
+      <p>O sistema valida o arquivo, mostra uma prévia do banco e sinaliza alterações antes que elas afetem variáveis, ponderações e cruzamentos já configurados.</p>
+    </div>
+  </section>
+
+  <section class="case-punchline reveal">
+    <div class="shell case-punchline-grid">
+      <span class="kicker">O problema em uma frase</span>
+      <p>A plataforma já conhecia a pesquisa inteira, mas, quando a coleta terminava, esse conhecimento era descartado e reconstruído manualmente em outra ferramenta.</p>
+    </div>
+  </section>
+
+  <div class="shell case-layout case-layout-wide">
+    <aside class="case-toc" aria-label="Índice do case">
+      <div class="case-toc-title">Neste case</div>
+      <a href="#resumo">Resumo</a>
+      <a href="#contexto">Contexto</a>
+      <a href="#discovery">Discovery</a>
+      <a href="#decisoes">Decisões</a>
+      <a href="#solucao">Solução</a>
+      <a href="#desafio">Desafio-chave</a>
+      <a href="#papel">Meu papel</a>
+      <a href="#impacto">Impacto</a>
+    </aside>
+
+    <article class="case-content case-content-editorial">
+      <section class="case-section reveal" id="resumo">
+        <div class="section-number">01 · RESUMO EXECUTIVO</div>
+        <h2>O problema não era gerar uma tabela. Era parar de refazer trabalho que o produto já tinha feito.</h2>
+        <p class="case-lead">A Opinion Box já possuía o contexto da pesquisa desde a criação do questionário. Mesmo assim, depois da coleta, analistas precisavam reconstruir manualmente perguntas, códigos, labels, variáveis e regras em Sphinx, Excel e SPSS para começar a análise.</p>
+
+        <div class="summary-grid summary-grid-clean">
+          <div class="summary-card"><span>Desafio</span><h3>Reconstrução manual</h3><p>Um fluxo lento, sujeito a erro e dependente de profissionais altamente especializados.</p></div>
+          <div class="summary-card"><span>Estratégia</span><h3>Preservar contexto</h3><p>Levar para o processamento informações que já existiam na coleta e organizar a complexidade em etapas previsíveis.</p></div>
+          <div class="summary-card"><span>Solução</span><h3>Módulo proprietário</h3><p>Importação, tratamento de variáveis, ponderação, exploração e configuração de cruzamentos em um único produto.</p></div>
+        </div>
+      </section>
+
+      <section class="case-section reveal" id="contexto">
+        <div class="section-number">02 · CONTEXTO E RESTRIÇÃO</div>
+        <h2>A operação cresceu. O processamento continuou artesanal.</h2>
+        <p>Depois da coleta, o banco era exportado e a pesquisa precisava ser reprogramada em outro software. Dependendo do projeto, essa etapa levava dias, ficava lenta em bases extensas e exigia profissionais com conhecimento muito específico.</p>
+        <p>Com cinco analistas processando mais de 30 projetos por mês, erros humanos, retrabalho, atrasos e horas extras passaram a fazer parte do custo operacional.</p>
+
+        <div class="constraint-band">
+          <div><strong>5</strong><span>analistas na operação mapeada</span></div>
+          <div><strong>30+</strong><span>projetos processados por mês</span></div>
+          <div><strong>Dias</strong><span>de trabalho em projetos mais complexos</span></div>
+        </div>
+
+        <div class="quote">Como integrar coleta e processamento sem limitar a profundidade analítica necessária aos especialistas?</div>
+      </section>
+
+      <section class="case-section reveal" id="discovery">
+        <div class="section-number">03 · DISCOVERY E ESTRATÉGIA</div>
+        <h2>O desperdício mais relevante estava entre um sistema e outro.</h2>
+        <p>Durante mais de três meses de discovery, mapeamos o fluxo atual com analistas, Produto e Tecnologia e analisamos referências como Qualtrics, Sphinx, Excel e SPSS.</p>
+        <p>A principal descoberta foi que a ineficiência não vinha apenas das ferramentas utilizadas. Ela nascia da quebra de continuidade: informações que já existiam na plataforma precisavam ser recriadas porque coleta e análise não compartilhavam o mesmo contexto.</p>
+
+        <div class="note"><p><strong>Oportunidade de produto:</strong> evoluir a Opinion Box de uma plataforma de criação e coleta para um ecossistema capaz de acompanhar a pesquisa até a análise dos resultados.</p></div>
+
+        <div class="decision-list compact-decisions">
+          <article><span>01</span><div><h3>Substituir o gargalo primeiro</h3><p>A integração automática entre coleta e processamento ficou para uma evolução futura. O MVP ainda importaria o banco manualmente para atacar primeiro a parte mais crítica da operação.</p></div></article>
+          <article><span>02</span><div><h3>Projetar para especialistas</h3><p>O objetivo não era esconder a complexidade estatística, e sim dar estrutura, feedback e previsibilidade para quem dependia dela.</p></div></article>
+        </div>
+      </section>
+
+      <section class="case-section reveal" id="decisoes">
+        <div class="section-number">04 · DECISÕES DE PRODUTO</div>
+        <h2>Segurança e rastreabilidade precisavam existir antes da sofisticação.</h2>
+        <p>Quando uma transformação pode alterar o resultado de uma pesquisa, erro de interface não é apenas fricção: pode comprometer a análise. As decisões de produto priorizaram prevenção, preservação do dado original e clareza sobre dependências.</p>
+
+        <div class="decision-list">
+          <article><span>01</span><div><h3>Preservar o original</h3><p>Transformações criam novas variáveis em vez de sobrescrever o banco de origem, mantendo rastreabilidade e possibilidade de conferência.</p></div></article>
+          <article><span>02</span><div><h3>Bloquear antes de contaminar</h3><p>Arquivos e configurações inválidas impedem o avanço até que o problema seja corrigido.</p></div></article>
+          <article><span>03</span><div><h3>Conferir antes de processar</h3><p>Pré-visualização, quantidades, percentuais e filtros ajudam o analista a validar o comportamento dos dados antes dos cruzamentos finais.</p></div></article>
+          <article><span>04</span><div><h3>Explicitar dependências</h3><p>Variáveis, ponderações e filtros são tratados como uma rede de relações, não como configurações independentes.</p></div></article>
+        </div>
+      </section>
+
+      <section class="case-section reveal" id="solucao">
+        <div class="section-number">05 · ESTRUTURA DA SOLUÇÃO</div>
+        <h2>Cinco etapas para organizar uma complexidade que não podia ser removida.</h2>
+        <div class="process-steps process-steps-five">
+          <div class="process-card"><span class="step">01</span><h3>Importar banco</h3><p>Validação de estrutura, bloqueio de erros e prévia das dez primeiras linhas para confirmar o arquivo.</p></div>
+          <div class="process-card"><span class="step">02</span><h3>Tratar variáveis</h3><p>Combinar, agrupar, criar intervalos, editar labels e gerar novas variáveis sem alterar o dado original.</p></div>
+          <div class="process-card"><span class="step">03</span><h3>Ponderar</h3><p>Aplicar pesos com validações para metas, duplicidades, categorias vazias e configurações incompatíveis.</p></div>
+          <div class="process-card"><span class="step">04</span><h3>Explorar dados</h3><p>Visualizar quantidades e percentuais e aplicar filtros antes do processamento final.</p></div>
+          <div class="process-card"><span class="step">05</span><h3>Processar</h3><p>Definir linhas, colunas, médias, NPS, significância, ponderações, filtros e formas de exibição.</p></div>
+        </div>
+        <div class="closing-learning product-principle">
+          <span>Princípio do produto</span>
+          <p>Simplificar não significava reduzir o poder analítico. Significava distribuir esse poder em uma sequência que deixasse claro o que estava acontecendo e por quê.</p>
+        </div>
+      </section>
+
+      <section class="case-section reveal" id="desafio">
+        <div class="section-number">06 · PRINCIPAL DESAFIO DE PRODUTO</div>
+        <h2>Atualizar o banco sem apagar o trabalho que veio depois dele.</h2>
+        <p>Depois de importar um arquivo, o analista pode criar variáveis, ponderações, filtros e cruzamentos. Se uma versão atualizada do banco chega depois, todas essas configurações passam a depender de uma estrutura que pode ter mudado.</p>
+        <p>Obrigar o usuário a começar novamente destruiria o principal valor do produto. A solução precisava reconciliar o novo banco com as configurações existentes e pedir intervenção apenas quando realmente necessário.</p>
+
+        <div class="dependency-flow" aria-label="Fluxo de reconciliação de dependências">
+          <div class="dependency-node"><span>01</span><strong>Novo banco</strong><small>arquivo substituído</small></div>
+          <div class="dependency-arrow" aria-hidden="true">→</div>
+          <div class="dependency-node"><span>02</span><strong>Comparar estrutura</strong><small>variáveis e labels</small></div>
+          <div class="dependency-arrow" aria-hidden="true">→</div>
+          <div class="dependency-node"><span>03</span><strong>Recalcular</strong><small>dependências válidas</small></div>
+          <div class="dependency-arrow" aria-hidden="true">→</div>
+          <div class="dependency-node dependency-node-dark"><span>04</span><strong>Sinalizar exceções</strong><small>só o que exige correção</small></div>
+        </div>
+
+        <div class="impact-list">
+          <div><span>01</span><p><strong>Detectar mudanças</strong><br>Identificar variáveis adicionadas, alteradas ou removidas e labels incompatíveis.</p></div>
+          <div><span>02</span><p><strong>Preservar configurações</strong><br>Recalcular variáveis, ponderações e visualizações sempre que a estrutura ainda for compatível.</p></div>
+          <div><span>03</span><p><strong>Concentrar a atenção</strong><br>Sinalizar apenas os pontos que realmente precisam ser corrigidos pelo analista.</p></div>
+        </div>
+      </section>
+
+      <section class="case-section reveal" id="papel">
+        <div class="section-number">07 · MEU PAPEL</div>
+        <h2>O trabalho começou na experiência e avançou para a definição do próprio produto.</h2>
+        <p>Como Lead Product Designer, liderei o discovery e fui responsável por transformar conceitos estatísticos e regras de negócio em arquitetura, requisitos, fluxos e decisões de MVP. Atuei diretamente com PMO, Tech Lead, cinco desenvolvedores, QA e com o Analista de Produto.</p>
+
+        <div class="role-grid">
+          <div><span>Discovery</span><p>Mapeamento do processo atual, entrevistas, benchmark e entendimento das regras de processamento.</p></div>
+          <div><span>Produto</span><p>Definição de requisitos, priorização do MVP e desenho das dependências entre funcionalidades.</p></div>
+          <div><span>Design</span><p>Arquitetura da informação, fluxos, prototipação e aplicação do Design System da Opinion Box.</p></div>
+          <div><span>Colaboração</span><p>Apresentação de decisões, documentação e alinhamento contínuo com Produto, Tecnologia e especialistas.</p></div>
+        </div>
+      </section>
+
+      <section class="case-section reveal" id="impacto">
+        <div class="section-number">08 · IMPACTO DESENHADO</div>
+        <h2>Menos operação repetitiva. Mais capacidade para analisar.</h2>
+        <p>O módulo foi concebido para eliminar a reprogramação manual, reduzir dias de trabalho operacional, diminuir erros e retrabalho e reduzir a dependência de ferramentas externas.</p>
+        <p>Além da necessidade interna, o projeto revelou uma oportunidade comercial: uma solução nacional, em português e integrada à coleta poderia ocupar um espaço hoje atendido por plataformas internacionais de custo mais alto.</p>
+
+        <div class="impact-list">
+          <div><span>01</span><p><strong>Continuidade</strong><br>Coleta e processamento passam a fazer parte do mesmo ecossistema de produto.</p></div>
+          <div><span>02</span><p><strong>Eficiência operacional</strong><br>Menos reconstrução manual, retrabalho e dependência de especialistas para tarefas repetitivas.</p></div>
+          <div><span>03</span><p><strong>Qualidade</strong><br>Validações preventivas reduzem o risco de configurações inválidas contaminarem a análise.</p></div>
+          <div><span>04</span><p><strong>Potencial de negócio</strong><br>A infraestrutura interna abre espaço para uma futura oferta comercial.</p></div>
+        </div>
+
+        <div class="closing-learning">
+          <span>Aprendizado</span>
+          <p>Produtos técnicos não precisam parecer simples. Eles precisam tornar relações complexas compreensíveis, seguras e rastreáveis para quem realmente depende delas.</p>
+        </div>
+      </section>
+    </article>
+  </div>
+
+  <section class="case-gallery-end reveal">
+    <div class="shell">
+      <div class="gallery-end-head"><span class="kicker">Decisão em contexto</span><h2>O sistema avisa o que mudou antes de deixar o usuário seguir.</h2></div>
+      <figure class="product-frame">
+        <div class="product-frame-bar" aria-hidden="true"><span></span><span></span><span></span><small>Opinion Box · Atualização do banco</small></div>
+        <img src="../../assets/cases/processamento-de-dados/01-importacao-banco.png" alt="Tela de substituição do banco e alerta sobre dados alterados" loading="lazy" />
+      </figure>
+    </div>
+  </section>
+
+  <section class="next-case">
+    <div class="shell">
+      <a href="../survey-builder/">
+        <div><small>Próximo case</small><strong>Survey Builder proprietário</strong></div>
+        <span class="next-arrow">↗</span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<script src="../../script.js"></script>
+</body>
+</html>
