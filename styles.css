@@ -859,3 +859,61 @@ html[data-theme="dark"] .identity-mark img { filter: invert(1); }
   .identity-meta { grid-column: auto; }
   .identity-domain { width: fit-content; }
 }
+
+
+/* === IA na criação de questionários · case 04 === */
+.ai-case-hero h1 { max-width: 1040px; }
+
+.ai-flow-visual {
+  border: 1px solid var(--line);
+  border-radius: clamp(24px, 4vw, 42px);
+  background:
+    radial-gradient(circle at 12% 18%, color-mix(in srgb, var(--fg) 5%, transparent) 0 110px, transparent 111px),
+    linear-gradient(var(--surface), var(--surface));
+  padding: clamp(28px, 4vw, 54px);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.ai-flow-topline { display:flex; align-items:center; gap:8px; justify-content:flex-end; margin-bottom: clamp(30px, 5vw, 58px); }
+.ai-badge { border:1px solid var(--line); border-radius:999px; padding:8px 12px; font-size:11px; font-weight:800; background:var(--surface); }
+.ai-badge-dark { background:var(--fg); color:var(--bg); border-color:var(--fg); }
+.ai-flow-track { display:grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr auto 1fr; gap:12px; align-items:center; }
+.ai-node { min-height:170px; border:1px solid var(--line); border-radius:22px; padding:20px; background:color-mix(in srgb, var(--surface) 95%, var(--bg)); display:flex; flex-direction:column; }
+.ai-node > span { font-size:11px; color:var(--muted); font-weight:800; letter-spacing:.08em; }
+.ai-node strong { margin-top:auto; font-size:24px; letter-spacing:-.04em; }
+.ai-node small { color:var(--muted); font-size:11px; line-height:1.35; margin-top:7px; }
+.ai-node-featured { background:var(--fg); color:var(--bg); border-color:var(--fg); transform:translateY(-10px); }
+.ai-node-featured > span, .ai-node-featured small { color:color-mix(in srgb, var(--bg) 72%, transparent); }
+.ai-connector { color:var(--muted); font-size:20px; }
+.ai-flow-signal { display:flex; flex-wrap:wrap; gap:8px; margin-top:30px; padding-top:20px; border-top:1px solid var(--line); }
+.ai-flow-signal span { border:1px solid var(--line); border-radius:999px; padding:7px 10px; font-size:10px; font-weight:750; color:var(--muted); }
+
+.ai-strategy-stack { margin:42px 0 0; display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+.ai-strategy-stack > div { min-height:210px; border:1px solid var(--line); border-radius:22px; padding:24px; background:var(--surface); }
+.ai-strategy-stack span { display:block; color:var(--muted); font-size:11px; font-weight:800; letter-spacing:.08em; }
+.ai-strategy-stack strong { display:block; margin-top:56px; font-size:24px; letter-spacing:-.04em; }
+.ai-strategy-stack p { margin:10px 0 0; font-size:14px; line-height:1.5; }
+
+.poc-board { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:44px 0 0; }
+.poc-board > div { min-height:230px; border:1px solid var(--line); border-radius:22px; padding:20px; background:var(--surface); display:flex; flex-direction:column; }
+.poc-board span { color:var(--muted); font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.08em; }
+.poc-board strong { margin-top:auto; font-size:21px; letter-spacing:-.035em; }
+.poc-board small { color:var(--muted); font-size:11px; line-height:1.4; margin-top:8px; }
+
+.ai-impact-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:44px 0 18px; }
+.ai-impact-grid > div { min-height:220px; border:1px solid var(--line); border-radius:22px; background:var(--surface); padding:24px; display:flex; flex-direction:column; justify-content:space-between; }
+.ai-impact-grid strong { font-size:clamp(48px,6vw,74px); line-height:.9; letter-spacing:-.065em; }
+.ai-impact-grid span { color:var(--muted); font-size:13px; line-height:1.4; max-width:210px; }
+
+@media (max-width: 980px) {
+  .ai-flow-track { grid-template-columns:1fr; }
+  .ai-connector { transform:rotate(90deg); justify-self:center; }
+  .ai-node { min-height:140px; }
+  .ai-node-featured { transform:none; }
+  .poc-board { grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width: 720px) {
+  .ai-strategy-stack, .ai-impact-grid, .poc-board { grid-template-columns:1fr; }
+  .ai-flow-topline { justify-content:flex-start; flex-wrap:wrap; }
+  .ai-impact-grid > div { min-height:180px; }
+}

@@ -3,11 +3,40 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
-    {"source": "/survey-builder", "destination": "/cases/survey-builder", "permanent": true},
-    {"source": "/design-system", "destination": "/cases/design-system", "permanent": true},
-    {"source": "/processamento", "destination": "/cases/processamento-de-dados", "permanent": true},
-    {"source": "/processamento-de-dados", "destination": "/cases/processamento-de-dados", "permanent": true},
-    {"source": "/inicio", "destination": "/", "permanent": true},
-    {"source": "/home", "destination": "/", "permanent": true}
+    {
+      "source": "/survey-builder",
+      "destination": "/cases/survey-builder",
+      "permanent": true
+    },
+    {
+      "source": "/design-system",
+      "destination": "/cases/design-system",
+      "permanent": true
+    },
+    {
+      "source": "/processamento",
+      "destination": "/cases/processamento-de-dados",
+      "permanent": true
+    },
+    {
+      "source": "/ia-questionarios",
+      "destination": "/cases/ia-questionarios",
+      "permanent": true
+    },
+    {
+      "source": "/processamento-de-dados",
+      "destination": "/cases/processamento-de-dados",
+      "permanent": true
+    },
+    {
+      "source": "/inicio",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/home",
+      "destination": "/",
+      "permanent": true
+    }
   ]
 }
