@@ -1,4 +1,25 @@
-User-agent: *
-Allow: /
+# OpenAI: treinamento
+User-agent: GPTBot
+Disallow: /
 
-Sitemap: https://mikebrito.com.br/sitemap.xml
+# OpenAI: resultados de busca do ChatGPT
+User-agent: OAI-SearchBot
+Disallow: /
+
+# Google: uso de conteúdo em Gemini / IA
+User-agent: Google-Extended
+Disallow: /
+
+# Anthropic: Claude
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Claude-SearchBot
+Disallow: /
+
+User-agent: Claude-User
+Disallow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Disallow: /
