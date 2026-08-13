@@ -26,7 +26,28 @@
   };
 
   const style=document.createElement('style');
-  style.textContent=`.site-controls{display:flex;align-items:center;gap:7px;margin-left:4px}.switch-control,.theme-toggle{display:inline-flex!important;align-items:center!important;gap:8px!important;width:auto!important;height:40px!important;padding:4px 9px!important;border:1px solid var(--line)!important;border-radius:999px!important;background:var(--surface)!important;color:var(--fg)!important;font:inherit!important;font-size:12px!important;font-weight:750!important;cursor:pointer!important}.switch-control:hover,.theme-toggle:hover{background:var(--soft)!important}.switch-track{position:relative;width:34px;height:20px;border-radius:999px;background:var(--line);flex:none}.switch-thumb{position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:var(--surface);box-shadow:0 1px 4px rgba(0,0,0,.2);transition:transform .2s ease}.switch-control[aria-pressed=true] .switch-track,.theme-toggle[aria-pressed=true] .switch-track{background:var(--fg)}.switch-control[aria-pressed=true] .switch-thumb,.theme-toggle[aria-pressed=true] .switch-thumb{transform:translateX(14px);background:var(--bg)}.theme-icon{display:grid;place-items:center;width:18px;height:18px;font-size:16px;line-height:1}.language-toggle .switch-label{min-width:18px}@media(max-width:760px){.nav{gap:10px}.nav-links{gap:2px}.nav-links>a{display:none}.site-controls{gap:5px}.switch-control,.theme-toggle{padding:4px 7px!important}.brand{width:96px}}`;
+  style.textContent=`
+    .site-controls{display:flex;align-items:center;gap:7px;margin-left:4px}
+    .switch-control,.theme-toggle{display:inline-flex!important;align-items:center!important;gap:8px!important;width:auto!important;height:40px!important;padding:4px 9px!important;border:1px solid var(--line)!important;border-radius:999px!important;background:var(--surface)!important;color:var(--fg)!important;font:inherit!important;font-size:12px!important;font-weight:750!important;cursor:pointer!important}
+    .switch-control:hover,.theme-toggle:hover{background:var(--soft)!important}
+    .switch-track{position:relative;width:34px;height:20px;border-radius:999px;background:var(--line);flex:none}
+    .switch-thumb{position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:var(--surface);box-shadow:0 1px 4px rgba(0,0,0,.2);transition:transform .2s ease}
+    .switch-control[aria-pressed=true] .switch-track,.theme-toggle[aria-pressed=true] .switch-track{background:var(--fg)}
+    .switch-control[aria-pressed=true] .switch-thumb,.theme-toggle[aria-pressed=true] .switch-thumb{transform:translateX(14px);background:var(--bg)}
+    .theme-icon{display:grid;place-items:center;width:18px;height:18px;font-size:16px;line-height:1}
+    .language-toggle .switch-label{min-width:18px}
+    .case-guidance{display:flex;flex-direction:column;gap:72px}
+    .case-guidance-group{display:flex;flex-direction:column;gap:26px}
+    .case-guidance-copy{max-width:900px;margin:0;color:var(--muted);font-size:clamp(19px,2.2vw,28px);line-height:1.35;letter-spacing:-.025em}
+    .case-guidance-copy strong{color:var(--fg);font-weight:780}
+    .case-guidance-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+    .case-guidance-cards.one{grid-template-columns:1fr}
+    .case-guidance-cards .case-card{grid-column:auto!important;width:100%;min-height:480px}
+    .case-guidance-cards.one .case-card{min-height:500px}
+    .case-guidance-cards .case-card.large,.case-guidance-cards .case-card.half{grid-column:auto!important}
+    @media(max-width:900px){.case-guidance{gap:58px}.case-guidance-cards{grid-template-columns:1fr}.case-guidance-cards .case-card,.case-guidance-cards.one .case-card{min-height:0}}
+    @media(max-width:760px){.nav{gap:10px}.nav-links{gap:2px}.nav-links>a{display:none}.site-controls{gap:5px}.switch-control,.theme-toggle{padding:4px 7px!important}.brand{width:96px}.case-guidance-copy{font-size:19px}}
+  `;
   document.head.appendChild(style);
 
   const themeBtn=document.querySelector('.theme-toggle');
@@ -42,6 +63,72 @@
   root.dataset.theme=localStorage.getItem('mike-theme') || (matchMedia?.('(prefers-color-scheme: dark)').matches?'dark':'light');
   let lang=localStorage.getItem('mike-language') || 'pt', translations={}, copy={}, originals=new WeakMap();
 
+  const recruiterCopy={
+    pt:{
+      title:'Olá! O que você procura em um Product Designer?',
+      product:'Para produto, estratégia e sistemas complexos, comece por <strong>Survey Builder e Processamento de Dados</strong>.',
+      ds:'Para Design Systems e escala, veja o <strong>case de Design System</strong>.',
+      ai:'Para IA aplicada a produto e engenharia de prompts, vá para <strong>IA na Criação de Questionários</strong>.',
+      resume:'Currículo ↗',resumeAria:'Abrir currículo de Mike Brito'
+    },
+    en:{
+      title:'Hi! What are you looking for in a Product Designer?',
+      product:'For product, strategy and complex systems, start with <strong>Survey Builder and Data Processing</strong>.',
+      ds:'For Design Systems and scale, see the <strong>Design System case</strong>.',
+      ai:'For AI applied to product and prompt engineering, go to <strong>AI-assisted Survey Creation</strong>.',
+      resume:'Resume ↗',resumeAria:'Open Mike Brito resume'
+    }
+  };
+
+  const enhanceHome=()=>{
+    if(page!=='home') return;
+    const c=recruiterCopy[lang==='en'?'en':'pt'];
+    const head=document.querySelector('#cases .section-head');
+    if(head){ const h2=head.querySelector('h2'); if(h2) h2.textContent=c.title; }
+
+    const grid=document.querySelector('#cases .work-grid');
+    if(grid){
+      const survey=grid.querySelector('[data-number="01"]');
+      const ds=grid.querySelector('[data-number="02"]');
+      const processing=grid.querySelector('[data-number="03"]');
+      const ai=grid.querySelector('[data-number="04"]');
+      if(survey && ds && processing && ai){
+        grid.className='work-grid case-guidance';
+        grid.innerHTML='';
+
+        const makeGroup=(html,cards,one=false)=>{
+          const section=document.createElement('section');
+          section.className='case-guidance-group';
+          const p=document.createElement('p'); p.className='case-guidance-copy'; p.innerHTML=html;
+          const cardsWrap=document.createElement('div'); cardsWrap.className=`case-guidance-cards${one?' one':''}`;
+          cards.forEach(card=>cardsWrap.appendChild(card));
+          section.append(p,cardsWrap);
+          return section;
+        };
+
+        grid.append(
+          makeGroup(c.product,[survey,processing]),
+          makeGroup(c.ds,[ds],true),
+          makeGroup(c.ai,[ai],true)
+        );
+      } else {
+        const groups=[...grid.querySelectorAll('.case-guidance-group')];
+        if(groups.length===3){
+          groups[0].querySelector('.case-guidance-copy').innerHTML=c.product;
+          groups[1].querySelector('.case-guidance-copy').innerHTML=c.ds;
+          groups[2].querySelector('.case-guidance-copy').innerHTML=c.ai;
+        }
+      }
+    }
+
+    const links=document.querySelector('.contact-links');
+    if(links){
+      let resume=links.querySelector('.resume-link');
+      if(!resume){ resume=document.createElement('a'); resume.className='resume-link'; resume.href='https://drive.google.com/file/d/1hJg-J4_RcVZTJD5kOwaIcldw0RLPvyB9/view?usp=sharing'; resume.target='_blank'; resume.rel='noopener noreferrer'; links.insertBefore(resume,links.firstElementChild); }
+      resume.textContent=c.resume; resume.setAttribute('aria-label',c.resumeAria);
+    }
+  };
+
   const controls=()=>{
     const dark=root.dataset.theme==='dark';
     if(themeBtn){ themeBtn.setAttribute('aria-pressed',dark); themeBtn.setAttribute('aria-label',lang==='en'?(dark?'Use light theme':'Use dark theme'):(dark?'Usar tema claro':'Usar tema escuro')); themeBtn.querySelector('.theme-icon').textContent=dark?'☾':'☀'; }
@@ -55,7 +142,7 @@
       const raw=original.trim(), pt=copy[raw]||raw, target=lang==='en'?(translations[pt]||translations[raw]||pt):pt;
       if(target!==raw) replace(node,target);
     });
-    controls();
+    enhanceHome(); controls();
   };
 
   themeBtn?.addEventListener('click',()=>{root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';localStorage.setItem('mike-theme',root.dataset.theme);controls();});
