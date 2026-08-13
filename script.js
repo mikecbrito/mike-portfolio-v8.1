@@ -26,7 +26,19 @@
   };
 
   const style=document.createElement('style');
-  style.textContent=`.site-controls{display:flex;align-items:center;gap:7px;margin-left:4px}.switch-control,.theme-toggle{display:inline-flex!important;align-items:center!important;gap:8px!important;width:auto!important;height:40px!important;padding:4px 9px!important;border:1px solid var(--line)!important;border-radius:999px!important;background:var(--surface)!important;color:var(--fg)!important;font:inherit!important;font-size:12px!important;font-weight:750!important;cursor:pointer!important}.switch-control:hover,.theme-toggle:hover{background:var(--soft)!important}.switch-track{position:relative;width:34px;height:20px;border-radius:999px;background:var(--line);flex:none}.switch-thumb{position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:var(--surface);box-shadow:0 1px 4px rgba(0,0,0,.2);transition:transform .2s ease}.switch-control[aria-pressed=true] .switch-track,.theme-toggle[aria-pressed=true] .switch-track{background:var(--fg)}.switch-control[aria-pressed=true] .switch-thumb,.theme-toggle[aria-pressed=true] .switch-thumb{transform:translateX(14px);background:var(--bg)}.theme-icon{display:grid;place-items:center;width:18px;height:18px;font-size:16px;line-height:1}.language-toggle .switch-label{min-width:18px}@media(max-width:760px){.nav{gap:10px}.nav-links{gap:2px}.nav-links>a{display:none}.site-controls{gap:5px}.switch-control,.theme-toggle{padding:4px 7px!important}.brand{width:96px}}`;
+  style.textContent=`
+    .site-controls{display:flex;align-items:center;gap:7px;margin-left:4px}
+    .switch-control,.theme-toggle{display:inline-flex!important;align-items:center!important;gap:8px!important;width:auto!important;height:40px!important;padding:4px 9px!important;border:1px solid var(--line)!important;border-radius:999px!important;background:var(--surface)!important;color:var(--fg)!important;font:inherit!important;font-size:12px!important;font-weight:750!important;cursor:pointer!important}
+    .switch-control:hover,.theme-toggle:hover{background:var(--soft)!important}
+    .switch-track{position:relative;width:34px;height:20px;border-radius:999px;background:var(--line);flex:none}
+    .switch-thumb{position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:var(--surface);box-shadow:0 1px 4px rgba(0,0,0,.2);transition:transform .2s ease}
+    .switch-control[aria-pressed=true] .switch-track,.theme-toggle[aria-pressed=true] .switch-track{background:var(--fg)}
+    .switch-control[aria-pressed=true] .switch-thumb,.theme-toggle[aria-pressed=true] .switch-thumb{transform:translateX(14px);background:var(--bg)}
+    .theme-icon{display:grid;place-items:center;width:18px;height:18px;font-size:16px;line-height:1}
+    .language-toggle .switch-label{min-width:18px}
+    .section-copy{min-width:0}.case-guide{margin-top:34px;border-top:1px solid var(--line);max-width:900px}.case-guide-item{padding:18px 0;border-bottom:1px solid var(--line)}.case-guide-item strong{display:block;font-size:12px;line-height:1.45;letter-spacing:.045em;text-transform:uppercase}.case-guide-item span{display:block;margin-top:7px;color:var(--muted);font-size:16px;line-height:1.5}
+    @media(max-width:760px){.nav{gap:10px}.nav-links{gap:2px}.nav-links>a{display:none}.site-controls{gap:5px}.switch-control,.theme-toggle{padding:4px 7px!important}.brand{width:96px}}
+  `;
   document.head.appendChild(style);
 
   const themeBtn=document.querySelector('.theme-toggle');
@@ -42,6 +54,34 @@
   root.dataset.theme=localStorage.getItem('mike-theme') || (matchMedia?.('(prefers-color-scheme: dark)').matches?'dark':'light');
   let lang=localStorage.getItem('mike-language') || 'pt', translations={}, copy={}, originals=new WeakMap();
 
+  const recruiterCopy={
+    pt:{title:'O que você procura em um Product Designer?',product:'Para produto, estratégia e sistemas complexos, comece por Survey Builder e Processamento de Dados.',ds:'Para Design Systems e escala, veja o case de Design System.',ai:'Para IA aplicada a produto e engenharia de prompts, vá para IA na Criação de Questionários.',resume:'Currículo ↗',resumeAria:'Abrir currículo de Mike Brito'},
+    en:{title:'What are you looking for in a Product Designer?',product:'For product, strategy and complex systems, start with Survey Builder and Data Processing.',ds:'For Design Systems and scale, see the Design System case.',ai:'For AI applied to product and prompt engineering, go to AI-assisted Survey Creation.',resume:'Resume ↗',resumeAria:'Open Mike Brito resume'}
+  };
+
+  const enhanceHome=()=>{
+    if(page!=='home') return;
+    const c=recruiterCopy[lang==='en'?'en':'pt'];
+    const head=document.querySelector('#cases .section-head');
+    if(head){
+      const h2=head.querySelector('h2');
+      let wrap=head.querySelector('.section-copy');
+      if(!wrap && h2){ wrap=document.createElement('div'); wrap.className='section-copy'; h2.parentNode.insertBefore(wrap,h2); wrap.appendChild(h2); }
+      if(h2) h2.textContent=c.title;
+      if(wrap){
+        let guide=wrap.querySelector('.case-guide');
+        if(!guide){ guide=document.createElement('div'); guide.className='case-guide'; guide.setAttribute('aria-label',lang==='en'?'Case guide by experience':'Guia de cases por experiência'); wrap.appendChild(guide); }
+        guide.innerHTML=`<div class="case-guide-item"><strong>Product Design · Product Strategy · B2B SaaS · Research · Complex Systems · Data</strong><span>${c.product}</span></div><div class="case-guide-item"><strong>Design Systems · Governance · Design Ops</strong><span>${c.ds}</span></div><div class="case-guide-item"><strong>AI Product Design · Prompt Engineering · UX Research</strong><span>${c.ai}</span></div>`;
+      }
+    }
+    const links=document.querySelector('.contact-links');
+    if(links){
+      let resume=links.querySelector('.resume-link');
+      if(!resume){ resume=document.createElement('a'); resume.className='resume-link'; resume.href='https://drive.google.com/file/d/1hJg-J4_RcVZTJD5kOwaIcldw0RLPvyB9/view?usp=sharing'; resume.target='_blank'; resume.rel='noopener noreferrer'; links.insertBefore(resume,links.firstElementChild); }
+      resume.textContent=c.resume; resume.setAttribute('aria-label',c.resumeAria);
+    }
+  };
+
   const controls=()=>{
     const dark=root.dataset.theme==='dark';
     if(themeBtn){ themeBtn.setAttribute('aria-pressed',dark); themeBtn.setAttribute('aria-label',lang==='en'?(dark?'Use light theme':'Use dark theme'):(dark?'Usar tema claro':'Usar tema escuro')); themeBtn.querySelector('.theme-icon').textContent=dark?'☾':'☀'; }
@@ -55,7 +95,7 @@
       const raw=original.trim(), pt=copy[raw]||raw, target=lang==='en'?(translations[pt]||translations[raw]||pt):pt;
       if(target!==raw) replace(node,target);
     });
-    controls();
+    enhanceHome(); controls();
   };
 
   themeBtn?.addEventListener('click',()=>{root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';localStorage.setItem('mike-theme',root.dataset.theme);controls();});
