@@ -29,6 +29,9 @@
     .hero-rotating-word > span {
       grid-area: 1 / 1;
       opacity: 0;
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--fg);
+      text-stroke: 1.5px var(--fg);
       transform: translateY(.28em);
       animation: hero-word-cycle 8s cubic-bezier(.2,.8,.2,1) infinite;
     }
@@ -80,7 +83,7 @@
       <div class="shell hero-grid">
         <div class="reveal">
           <h1 class="hero-rotating-title">
-            <span class="hero-rotating-visual" aria-hidden="true">Transformo complexidade em <span class="hero-rotating-word"><span>clareza</span><span>estratégia</span><span>escala</span><span>impacto</span></span>.</span>
+            <span class="hero-rotating-visual" aria-hidden="true">Transformo complexidade em <span class="hero-rotating-word"><span>clareza.</span><span>estratégia.</span><span>escala.</span><span>impacto.</span></span></span>
             <span class="sr-only">Transformo complexidade em clareza, estratégia, escala e impacto.</span>
           </h1>
         </div>
