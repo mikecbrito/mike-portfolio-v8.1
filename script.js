@@ -31,15 +31,10 @@
       const response = await fetch(`/i18n/${file}`, { cache: 'no-store' });
       if (!response.ok) return {};
       return await response.json();
-    } catch (_) {
-      return {};
-    }
+    } catch (_) { return {}; }
   };
 
-  const loadMaps = async (files) => {
-    const chunks = await Promise.all(files.map(loadJson));
-    return Object.assign({}, ...chunks);
-  };
+  const loadMaps = async (files) => Object.assign({}, ...(await Promise.all(files.map(loadJson))));
 
   const walkTextNodes = (callback) => {
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
@@ -68,13 +63,14 @@
     .site-controls{display:flex;align-items:center;gap:7px;margin-left:4px}
     .switch-control,.theme-toggle{display:inline-flex!important;align-items:center!important;gap:8px!important;width:auto!important;height:40px!important;padding:4px 9px!important;border:1px solid var(--line)!important;border-radius:999px!important;background:var(--surface)!important;color:var(--fg)!important;font:inherit!important;font-size:12px!important;font-weight:750!important;cursor:pointer!important}
     .switch-control:hover,.theme-toggle:hover{background:var(--soft)!important}
+    .theme-icon{display:grid;place-items:center;width:18px;height:18px;font-size:16px;line-height:1}
     .switch-track{position:relative;width:34px;height:20px;border-radius:999px;background:var(--line);flex:none;transition:background .2s ease}
     .switch-thumb{position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:var(--surface);box-shadow:0 1px 4px rgba(0,0,0,.2);transition:transform .2s ease,background .2s ease}
     .switch-control[aria-pressed="true"] .switch-track,.theme-toggle[aria-pressed="true"] .switch-track{background:var(--fg)}
     .switch-control[aria-pressed="true"] .switch-thumb,.theme-toggle[aria-pressed="true"] .switch-thumb{transform:translateX(14px);background:var(--bg)}
     .switch-label{min-width:28px;text-align:left;line-height:1}
     .language-toggle .switch-label{min-width:18px}
-    @media(max-width:760px){.nav{gap:10px}.nav-links{gap:2px}.nav-links>a{display:none}.site-controls{gap:5px}.switch-control,.theme-toggle{padding:4px 7px!important}.switch-label{display:none}.brand{width:96px}}
+    @media(max-width:760px){.nav{gap:10px}.nav-links{gap:2px}.nav-links>a{display:none}.site-controls{gap:5px}.switch-control,.theme-toggle{padding:4px 7px!important}.brand{width:96px}}
   `;
   document.head.appendChild(controlsStyle);
 
@@ -84,7 +80,7 @@
 
   const themeToggle = document.querySelector('.theme-toggle');
   if (themeToggle) {
-    themeToggle.innerHTML = '<span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span><span class="switch-label"></span>';
+    themeToggle.innerHTML = '<span class="theme-icon" aria-hidden="true"></span><span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>';
     themeToggle.setAttribute('role', 'switch');
   }
 
@@ -110,8 +106,8 @@
     if (themeToggle) {
       themeToggle.setAttribute('aria-pressed', String(dark));
       themeToggle.setAttribute('aria-label', language === 'en' ? (dark ? 'Use light theme' : 'Use dark theme') : (dark ? 'Usar tema claro' : 'Usar tema escuro'));
-      const label = themeToggle.querySelector('.switch-label');
-      if (label) label.textContent = language === 'en' ? (dark ? 'Dark' : 'Light') : (dark ? 'Escuro' : 'Claro');
+      const icon = themeToggle.querySelector('.theme-icon');
+      if (icon) icon.textContent = dark ? '☾' : '☀';
     }
     languageToggle.setAttribute('aria-pressed', String(language === 'en'));
     languageToggle.setAttribute('aria-label', language === 'en' ? 'Mudar idioma para português' : 'Switch language to English');
@@ -136,15 +132,9 @@
       if (!el.dataset.originalAria) el.dataset.originalAria = el.getAttribute('aria-label') || '';
       const value = el.dataset.originalAria;
       if (language === 'en') {
-        const ariaMap = {
-          'Navegação principal': 'Main navigation',
-          'Índice do case': 'Case table of contents',
-          'Mike Brito, início': 'Mike Brito, home'
-        };
+        const ariaMap = {'Navegação principal':'Main navigation','Índice do case':'Case table of contents','Mike Brito, início':'Mike Brito, home'};
         el.setAttribute('aria-label', ariaMap[value] || value);
-      } else {
-        el.setAttribute('aria-label', value);
-      }
+      } else el.setAttribute('aria-label', value);
     });
     updateControls();
   };
@@ -170,10 +160,7 @@
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
       });
     }, { threshold: .08 });
     revealEls.forEach(el => observer.observe(el));
@@ -192,15 +179,10 @@
 
   (async () => {
     const [common, pageTranslations, copy] = await Promise.all([
-      loadMaps(['common.json']),
-      loadMaps(translationFiles[pageKey] || []),
-      loadMaps(copyFiles[pageKey] || ['copy-core.json'])
+      loadMaps(['common.json']), loadMaps(translationFiles[pageKey] || []), loadMaps(copyFiles[pageKey] || ['copy-core.json'])
     ]);
     translations = { ...common, ...pageTranslations };
-    walkTextNodes((node) => {
-      const trimmed = node.nodeValue.trim();
-      if (copy[trimmed]) replaceTextNode(node, copy[trimmed]);
-    });
+    walkTextNodes((node) => { const trimmed = node.nodeValue.trim(); if (copy[trimmed]) replaceTextNode(node, copy[trimmed]); });
     originalText = new WeakMap();
     walkTextNodes((node) => originalText.set(node, node.nodeValue));
     applyLanguage(language);
