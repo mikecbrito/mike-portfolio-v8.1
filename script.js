@@ -26,6 +26,14 @@
     'ia-questionarios': ['copy-core.json']
   };
 
+  const pageTitles = {
+    home: { pt: 'Mike Brito | Product Designer', en: 'Mike Brito | Product Designer' },
+    'survey-builder': { pt: 'Survey Builder Proprietário | Mike Brito', en: 'Proprietary Survey Builder | Mike Brito' },
+    'design-system': { pt: 'Design System | Mike Brito', en: 'Design System | Mike Brito' },
+    processamento: { pt: 'Processamento de Dados | Mike Brito', en: 'Data Processing | Mike Brito' },
+    'ia-questionarios': { pt: 'IA na Criação de Questionários | Mike Brito', en: 'AI-assisted Survey Creation | Mike Brito' }
+  };
+
   const loadJson = async (file) => {
     try {
       const response = await fetch(`/i18n/${file}`, { cache: 'no-store' });
@@ -63,7 +71,8 @@
     .site-controls{display:flex;align-items:center;gap:7px;margin-left:4px}
     .switch-control,.theme-toggle{display:inline-flex!important;align-items:center!important;gap:8px!important;width:auto!important;height:40px!important;padding:4px 9px!important;border:1px solid var(--line)!important;border-radius:999px!important;background:var(--surface)!important;color:var(--fg)!important;font:inherit!important;font-size:12px!important;font-weight:750!important;cursor:pointer!important}
     .switch-control:hover,.theme-toggle:hover{background:var(--soft)!important}
-    .theme-icon{display:grid;place-items:center;width:18px;height:18px;font-size:16px;line-height:1}
+    .theme-icon{display:grid;place-items:center;width:18px;height:18px;font-size:16px;line-height:1;flex:none;transition:transform .2s ease}
+    .theme-toggle:hover .theme-icon{transform:rotate(10deg)}
     .switch-track{position:relative;width:34px;height:20px;border-radius:999px;background:var(--line);flex:none;transition:background .2s ease}
     .switch-thumb{position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:var(--surface);box-shadow:0 1px 4px rgba(0,0,0,.2);transition:transform .2s ease,background .2s ease}
     .switch-control[aria-pressed="true"] .switch-track,.theme-toggle[aria-pressed="true"] .switch-track{background:var(--fg)}
@@ -80,7 +89,7 @@
 
   const themeToggle = document.querySelector('.theme-toggle');
   if (themeToggle) {
-    themeToggle.innerHTML = '<span class="theme-icon" aria-hidden="true"></span><span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>';
+    themeToggle.innerHTML = '<span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span><span class="theme-icon" aria-hidden="true"></span>';
     themeToggle.setAttribute('role', 'switch');
   }
 
@@ -100,6 +109,7 @@
   let language = localStorage.getItem('mike-language') || 'pt';
   let originalText = new WeakMap();
   let translations = {};
+  let copyMap = {};
 
   const updateControls = () => {
     const dark = root.dataset.theme === 'dark';
@@ -119,20 +129,33 @@
     language = next;
     root.lang = language === 'en' ? 'en' : 'pt-BR';
     root.dataset.language = language;
+    document.title = pageTitles[pageKey]?.[language] || document.title;
+
     walkTextNodes((node) => {
       const original = originalText.get(node);
       if (original === undefined) return;
       node.nodeValue = original;
-      if (language === 'en') {
-        const trimmed = original.trim();
-        if (translations[trimmed]) replaceTextNode(node, translations[trimmed]);
-      }
+      const raw = original.trim();
+      const ptText = copyMap[raw] || raw;
+      const target = language === 'en'
+        ? (translations[ptText] || translations[raw] || ptText)
+        : ptText;
+      if (target !== raw) replaceTextNode(node, target);
     });
+
     document.querySelectorAll('[aria-label]').forEach((el) => {
       if (!el.dataset.originalAria) el.dataset.originalAria = el.getAttribute('aria-label') || '';
       const value = el.dataset.originalAria;
       if (language === 'en') {
-        const ariaMap = {'Navegação principal':'Main navigation','Índice do case':'Case table of contents','Mike Brito, início':'Mike Brito, home'};
+        const ariaMap = {
+          'Navegação principal': 'Main navigation',
+          'Índice do case': 'Case table of contents',
+          'Mike Brito, início': 'Mike Brito, home',
+          'Destaques do projeto': 'Project highlights',
+          'Fluxo de reconciliação de dependências': 'Dependency reconciliation flow',
+          'Etapas da prova de conceito': 'Proof of concept steps',
+          'Fluxo de criação assistida por inteligência artificial': 'AI-assisted survey creation flow'
+        };
         el.setAttribute('aria-label', ariaMap[value] || value);
       } else el.setAttribute('aria-label', value);
     });
@@ -150,6 +173,8 @@
     localStorage.setItem('mike-language', next);
     applyLanguage(next);
   });
+
+  updateControls();
 
   const header = document.querySelector('.site-header');
   const setHeader = () => header?.classList.toggle('scrolled', window.scrollY > 18);
@@ -179,10 +204,12 @@
 
   (async () => {
     const [common, pageTranslations, copy] = await Promise.all([
-      loadMaps(['common.json']), loadMaps(translationFiles[pageKey] || []), loadMaps(copyFiles[pageKey] || ['copy-core.json'])
+      loadMaps(['common.json']),
+      loadMaps(translationFiles[pageKey] || []),
+      loadMaps(copyFiles[pageKey] || ['copy-core.json'])
     ]);
     translations = { ...common, ...pageTranslations };
-    walkTextNodes((node) => { const trimmed = node.nodeValue.trim(); if (copy[trimmed]) replaceTextNode(node, copy[trimmed]); });
+    copyMap = copy;
     originalText = new WeakMap();
     walkTextNodes((node) => originalText.set(node, node.nodeValue));
     applyLanguage(language);
