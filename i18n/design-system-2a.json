@@ -1,0 +1,15 @@
+{
+  "Interfaces, estados e componentes diferentes para resolver problemas semelhantes em produtos do mesmo ecossistema.": "Different interfaces, states and components were being used to solve similar problems across products in the same ecosystem.",
+  "Tokens, escalas, componentes core, documentação e rituais para garantir adoção contínua.": "Tokens, scales, core components, documentation and rituals to support continuous adoption.",
+  "Mais consistência, menos tempo de criação e revisão e menor retrabalho entre design e desenvolvimento.": "More consistency, less creation and review time, and less rework between design and engineering.",
+  "componentes criados de forma isolada": "components created in isolation",
+  "fricções recorrentes: inconsistência, handoff e retrabalho": "recurring frictions: inconsistency, handoff and rework",
+  "linguagem necessária para conectar o ecossistema": "shared language needed to connect the ecosystem",
+  "Divergências em ícones, tipografia, espaçamentos, estados e hierarquia.": "Differences in icons, typography, spacing, states and hierarchy.",
+  "Designers recriavam componentes e desenvolvedores precisavam interpretar padrões diferentes em cada produto.": "Designers rebuilt components and engineers had to interpret different patterns in each product.",
+  "A experiência fragmentada enfraquecia a percepção de uma plataforma única.": "The fragmented experience weakened the perception of a unified platform.",
+  "Cores, tipografia e espaçamentos estruturados para garantir coerência e preparar futuras integrações com Figma Variables.": "Colors, typography and spacing were structured to ensure coherence and prepare future integrations with Figma Variables.",
+  "Uma escala tipográfica e um sistema de espaçamento únicos reduziram variações antes mesmo da biblioteca crescer.": "A unified type scale and spacing system reduced variation before the library even expanded.",
+  "Botões, inputs, modais, tabelas, dropdowns e estados foram priorizados a partir das necessidades mais recorrentes dos produtos.": "Buttons, inputs, modals, tables, dropdowns and states were prioritized based on the most recurring product needs.",
+  "Figma, Notion e novos rituais de revisão deram contexto de uso e criaram uma fonte comum de verdade.": "Figma, Notion and new review rituals provided usage context and created a shared source of truth."
+}
