@@ -8,7 +8,7 @@
     survey: ['survey-builder-1.json','survey-builder-2.json','survey-builder-3.json'],
     design: ['design-system.json','design-system-2a.json','design-system-2b1.json','design-system-2b2.json','design-system-2b3.json'],
     processing: ['processamento-1.json','processamento-2a.json','processamento-2d.json','processamento-2e.json','processamento-2f.json','processamento-2g.json'],
-    ai: ['ia-questionarios.json','ia-questionarios-2a.json','ia-questionarios-2b.json','ia-questionarios-2c.json','ia-questionarios-2d1.json']
+    ai: ['ia-questionarios.json','ia-questionarios-2a.json','ia-questionarios-2b.json','ia-questionarios-2c.json','ia-questionarios-2d1.json','ia-questionarios-2d2a.json']
   };
   const copyFiles = page === 'survey' ? ['copy-core.json','copy-survey.json'] : ['copy-core.json'];
 
