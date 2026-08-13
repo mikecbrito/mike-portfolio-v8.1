@@ -36,8 +36,17 @@
     .switch-control[aria-pressed=true] .switch-thumb,.theme-toggle[aria-pressed=true] .switch-thumb{transform:translateX(14px);background:var(--bg)}
     .theme-icon{display:grid;place-items:center;width:18px;height:18px;font-size:16px;line-height:1}
     .language-toggle .switch-label{min-width:18px}
-    .section-copy{min-width:0}.case-guide{margin-top:34px;border-top:1px solid var(--line);max-width:900px}.case-guide-item{padding:18px 0;border-bottom:1px solid var(--line)}.case-guide-item strong{display:block;font-size:12px;line-height:1.45;letter-spacing:.045em;text-transform:uppercase}.case-guide-item span{display:block;margin-top:7px;color:var(--muted);font-size:16px;line-height:1.5}
-    @media(max-width:760px){.nav{gap:10px}.nav-links{gap:2px}.nav-links>a{display:none}.site-controls{gap:5px}.switch-control,.theme-toggle{padding:4px 7px!important}.brand{width:96px}}
+    .case-guidance{display:flex;flex-direction:column;gap:72px}
+    .case-guidance-group{display:flex;flex-direction:column;gap:26px}
+    .case-guidance-copy{max-width:900px;margin:0;color:var(--muted);font-size:clamp(19px,2.2vw,28px);line-height:1.35;letter-spacing:-.025em}
+    .case-guidance-copy strong{color:var(--fg);font-weight:780}
+    .case-guidance-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+    .case-guidance-cards.one{grid-template-columns:1fr}
+    .case-guidance-cards .case-card{grid-column:auto!important;width:100%;min-height:480px}
+    .case-guidance-cards.one .case-card{min-height:500px}
+    .case-guidance-cards .case-card.large,.case-guidance-cards .case-card.half{grid-column:auto!important}
+    @media(max-width:900px){.case-guidance{gap:58px}.case-guidance-cards{grid-template-columns:1fr}.case-guidance-cards .case-card,.case-guidance-cards.one .case-card{min-height:0}}
+    @media(max-width:760px){.nav{gap:10px}.nav-links{gap:2px}.nav-links>a{display:none}.site-controls{gap:5px}.switch-control,.theme-toggle{padding:4px 7px!important}.brand{width:96px}.case-guidance-copy{font-size:19px}}
   `;
   document.head.appendChild(style);
 
@@ -55,25 +64,63 @@
   let lang=localStorage.getItem('mike-language') || 'pt', translations={}, copy={}, originals=new WeakMap();
 
   const recruiterCopy={
-    pt:{title:'O que você procura em um Product Designer?',product:'Para produto, estratégia e sistemas complexos, comece por Survey Builder e Processamento de Dados.',ds:'Para Design Systems e escala, veja o case de Design System.',ai:'Para IA aplicada a produto e engenharia de prompts, vá para IA na Criação de Questionários.',resume:'Currículo ↗',resumeAria:'Abrir currículo de Mike Brito'},
-    en:{title:'What are you looking for in a Product Designer?',product:'For product, strategy and complex systems, start with Survey Builder and Data Processing.',ds:'For Design Systems and scale, see the Design System case.',ai:'For AI applied to product and prompt engineering, go to AI-assisted Survey Creation.',resume:'Resume ↗',resumeAria:'Open Mike Brito resume'}
+    pt:{
+      title:'Olá! O que você procura em um Product Designer?',
+      product:'Para produto, estratégia e sistemas complexos, comece por <strong>Survey Builder e Processamento de Dados</strong>.',
+      ds:'Para Design Systems e escala, veja o <strong>case de Design System</strong>.',
+      ai:'Para IA aplicada a produto e engenharia de prompts, vá para <strong>IA na Criação de Questionários</strong>.',
+      resume:'Currículo ↗',resumeAria:'Abrir currículo de Mike Brito'
+    },
+    en:{
+      title:'Hi! What are you looking for in a Product Designer?',
+      product:'For product, strategy and complex systems, start with <strong>Survey Builder and Data Processing</strong>.',
+      ds:'For Design Systems and scale, see the <strong>Design System case</strong>.',
+      ai:'For AI applied to product and prompt engineering, go to <strong>AI-assisted Survey Creation</strong>.',
+      resume:'Resume ↗',resumeAria:'Open Mike Brito resume'
+    }
   };
 
   const enhanceHome=()=>{
     if(page!=='home') return;
     const c=recruiterCopy[lang==='en'?'en':'pt'];
     const head=document.querySelector('#cases .section-head');
-    if(head){
-      const h2=head.querySelector('h2');
-      let wrap=head.querySelector('.section-copy');
-      if(!wrap && h2){ wrap=document.createElement('div'); wrap.className='section-copy'; h2.parentNode.insertBefore(wrap,h2); wrap.appendChild(h2); }
-      if(h2) h2.textContent=c.title;
-      if(wrap){
-        let guide=wrap.querySelector('.case-guide');
-        if(!guide){ guide=document.createElement('div'); guide.className='case-guide'; guide.setAttribute('aria-label',lang==='en'?'Case guide by experience':'Guia de cases por experiência'); wrap.appendChild(guide); }
-        guide.innerHTML=`<div class="case-guide-item"><strong>Product Design · Product Strategy · B2B SaaS · Research · Complex Systems · Data</strong><span>${c.product}</span></div><div class="case-guide-item"><strong>Design Systems · Governance · Design Ops</strong><span>${c.ds}</span></div><div class="case-guide-item"><strong>AI Product Design · Prompt Engineering · UX Research</strong><span>${c.ai}</span></div>`;
+    if(head){ const h2=head.querySelector('h2'); if(h2) h2.textContent=c.title; }
+
+    const grid=document.querySelector('#cases .work-grid');
+    if(grid){
+      const survey=grid.querySelector('[data-number="01"]');
+      const ds=grid.querySelector('[data-number="02"]');
+      const processing=grid.querySelector('[data-number="03"]');
+      const ai=grid.querySelector('[data-number="04"]');
+      if(survey && ds && processing && ai){
+        grid.className='case-guidance';
+        grid.innerHTML='';
+
+        const makeGroup=(html,cards,one=false)=>{
+          const section=document.createElement('section');
+          section.className='case-guidance-group';
+          const p=document.createElement('p'); p.className='case-guidance-copy'; p.innerHTML=html;
+          const cardsWrap=document.createElement('div'); cardsWrap.className=`case-guidance-cards${one?' one':''}`;
+          cards.forEach(card=>cardsWrap.appendChild(card));
+          section.append(p,cardsWrap);
+          return section;
+        };
+
+        grid.append(
+          makeGroup(c.product,[survey,processing]),
+          makeGroup(c.ds,[ds],true),
+          makeGroup(c.ai,[ai],true)
+        );
+      } else {
+        const groups=[...grid.querySelectorAll('.case-guidance-group')];
+        if(groups.length===3){
+          groups[0].querySelector('.case-guidance-copy').innerHTML=c.product;
+          groups[1].querySelector('.case-guidance-copy').innerHTML=c.ds;
+          groups[2].querySelector('.case-guidance-copy').innerHTML=c.ai;
+        }
       }
     }
+
     const links=document.querySelector('.contact-links');
     if(links){
       let resume=links.querySelector('.resume-link');
