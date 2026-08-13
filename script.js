@@ -93,7 +93,7 @@
       const processing=grid.querySelector('[data-number="03"]');
       const ai=grid.querySelector('[data-number="04"]');
       if(survey && ds && processing && ai){
-        grid.className='case-guidance';
+        grid.className='work-grid case-guidance';
         grid.innerHTML='';
 
         const makeGroup=(html,cards,one=false)=>{
