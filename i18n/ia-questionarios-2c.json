@@ -1,0 +1,10 @@
+{
+  "Diferencial estratégico:": "Strategic differentiator:",
+  "em vez de começar na geração de perguntas, o fluxo começava na definição do objetivo. A automação acompanhava a lógica da pesquisa, não apenas a produção de texto.": "instead of starting with question generation, the flow began with defining the objective. Automation followed the logic of the research, not just text production.",
+  "Uma matriz CSD ajudou a organizar certezas, suposições e dúvidas do projeto. Em paralelo, fizemos benchmarking de soluções concorrentes e cocriamos prompts estruturados com especialistas em pesquisa para estabelecer critérios de qualidade e reduzir riscos de viés.": "A CSD matrix helped organize project certainties, assumptions and doubts. In parallel, we benchmarked competing solutions and co-created structured prompts with research specialists to establish quality criteria and reduce bias risk.",
+  "Antes do desenvolvimento completo, uma POC foi construída em parceria com as equipes de Insights e TI. O objetivo era validar se a IA conseguia gerar questionários relevantes e alinhados aos objetivos definidos pelos usuários.": "Before full development, a POC was built with the Insights and Engineering teams. The goal was to validate whether AI could generate relevant questionnaires aligned with user-defined objectives.",
+  "Certezas, suposições e dúvidas antes de escalar a solução.": "Certainties, assumptions and doubts before scaling the solution.",
+  "Comparar abordagens de IA já presentes no mercado.": "Compare AI approaches already available in the market.",
+  "Cocriar instruções com especialistas em pesquisa.": "Co-create instructions with research specialists.",
+  "Testar relevância antes do desenvolvimento completo.": "Test relevance before full development."
+}
