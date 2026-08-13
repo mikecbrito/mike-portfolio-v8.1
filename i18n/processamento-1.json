@@ -1,0 +1,22 @@
+{
+  "Processar dados sem reconstruir a pesquisa do zero.": "Process data without rebuilding the research from scratch.",
+  "Depois da coleta, analistas ainda precisavam reprogramar perguntas, variáveis e regras em ferramentas externas. O desafio foi desenhar um produto capaz de preservar esse conhecimento e transformar uma operação de dias em um fluxo integrado, seguro e escalável.": "After data collection, analysts still had to reprogram questions, variables and rules in external tools. The challenge was to design a product that preserved that knowledge and turned a days-long operation into an integrated, safe and scalable flow.",
+  "3+ meses": "3+ months",
+  "30+ projetos por mês": "30+ projects per month",
+  "PMO, Tech Lead, 5 devs e QA": "PMO, Tech Lead, 5 engineers and QA",
+  "Importação e atualização": "Import and update",
+  "O problema não era gerar uma tabela. Era parar de refazer trabalho que o produto já tinha feito.": "The problem was not generating a table. It was stopping work the product had already done from being rebuilt.",
+  "Reconstrução manual": "Manual reconstruction",
+  "Preservar contexto": "Preserve context",
+  "Módulo proprietário": "Proprietary module",
+  "A operação cresceu. O processamento continuou artesanal.": "Operations grew. Processing stayed manual.",
+  "analistas na operação mapeada": "analysts in the mapped operation",
+  "projetos processados por mês": "projects processed per month",
+  "Dias": "Days",
+  "de trabalho em projetos mais complexos": "of work on more complex projects",
+  "Como integrar coleta e processamento sem limitar a profundidade analítica necessária aos especialistas?": "How could we integrate collection and processing without limiting the analytical depth specialists needed?",
+  "03 · DISCOVERY E ESTRATÉGIA": "03 · DISCOVERY AND STRATEGY",
+  "O desperdício mais relevante estava entre um sistema e outro.": "The biggest waste was between one system and the next.",
+  "Substituir o gargalo primeiro": "Replace the bottleneck first",
+  "Projetar para especialistas": "Design for specialists"
+}
